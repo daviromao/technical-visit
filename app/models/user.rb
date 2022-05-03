@@ -19,4 +19,11 @@ class User < ApplicationRecord
 
   validates :cpf, presence: true, uniqueness: true
   validates_with CpfValidator
+
+
+  def as_json(options={})
+    options[:except] ||= [:password_digest]
+    super(options)
+  end
+
 end
