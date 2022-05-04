@@ -20,10 +20,10 @@ class User < ApplicationRecord
   validates :cpf, presence: true, uniqueness: true
   validates_with CpfValidator
 
+  has_many :formularies
 
   def as_json(options={})
     options[:except] ||= [:password_digest]
     super(options)
   end
-
 end

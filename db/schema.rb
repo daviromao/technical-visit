@@ -10,15 +10,35 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_02_184502) do
+ActiveRecord::Schema.define(version: 2022_05_03_232604) do
+
+  create_table "formularies", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_formularies_on_user_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "question_type", null: false
+    t.string "url_image"
+    t.integer "formulary_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["formulary_id"], name: "index_questions_on_formulary_id"
+  end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password_digest"
-    t.string "cpf"
+    t.string "name", null: false
+    t.string "email", null: false
+    t.string "password_digest", null: false
+    t.string "cpf", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "formularies", "users"
+  add_foreign_key "questions", "formularies"
 end
