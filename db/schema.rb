@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_05_03_232604) do
+ActiveRecord::Schema.define(version: 2022_05_05_113426) do
+
+  create_table "answers", force: :cascade do |t|
+    t.string "content", null: false
+    t.integer "question_id", null: false
+    t.integer "visit_id"
+    t.datetime "answered_at"
+    t.datetime "updated_answer_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["visit_id"], name: "index_answers_on_visit_id"
+  end
 
   create_table "formularies", force: :cascade do |t|
     t.string "name", null: false
@@ -39,6 +51,20 @@ ActiveRecord::Schema.define(version: 2022_05_03_232604) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "visits", force: :cascade do |t|
+    t.date "visit_date", null: false
+    t.string "status", null: false
+    t.integer "user_id", null: false
+    t.datetime "checkin_at"
+    t.datetime "checkout_at"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_visits_on_user_id"
+  end
+
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "visits"
   add_foreign_key "formularies", "users"
   add_foreign_key "questions", "formularies"
+  add_foreign_key "visits", "users"
 end

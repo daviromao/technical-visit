@@ -7,4 +7,5 @@ class Question < ApplicationRecord
             :message => "question_type must be in #{QUESTION_TYPES.join ', '}."
 
   belongs_to :formulary
+  has_many :answers
 end

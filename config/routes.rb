@@ -4,6 +4,10 @@ Rails.application.routes.draw do
       resources :users
       resources :formularies
       resources :questions
+      resources :visits
+      resources :answers
+
+      get '/visits/me', to: 'answers#my_visits'
       post '/auth/login', to: 'authentication#login'
     end
   end

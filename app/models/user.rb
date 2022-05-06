@@ -21,6 +21,7 @@ class User < ApplicationRecord
   validates_with CpfValidator
 
   has_many :formularies
+  has_many :visits
 
   def as_json(options={})
     options[:except] ||= [:password_digest]
